@@ -1,0 +1,533 @@
+{% extends "base/base.jinja2" %}
+
+{% block content %}
+   {% load static %}
+
+    <div class="content-body">
+      <div class="tp-banner-container">
+        <div class="tp-banner-slider">
+          <ul>
+            <li data-masterspeed="700" data-slotamount="7" data-transition="fade">
+              <img data-lazyload="../static/pic/slider/main/slide-4.jpg"
+                   data-bgposition="center"
+                   alt=""
+                   data-kenburns="on"
+                   data-duration="1000"
+                   data-ease="Linear.easeNone"
+                   data-scalestart="100"
+                   data-scaleend="135"
+                   data-rotatestart="0"
+                   data-rotateend="0"
+                   data-offsetstart="0 0"
+                   data-offsetend="0 0"
+                   data-bgparallax="10">
+              <div data-x="['center','center','center','center']" data-y="center" data-transform_in="x:-150px;opacity:0;s:1500;e:Power3.easeInOut;" data-transform_out="x:150px;opacity:0;s:1000;e:Power2.easeInOut;s:1000;e:Power2.easeInOut;" data-start="400" class="tp-caption sl-content">
+                <div class="sl-title-top">Welcome to</div>
+                <div class="sl-title">Venice</div>
+                <div class="sl-title-bot">Starting <span>$105</span> per night</div>
+              </div>
+            </li>
+            <li data-masterspeed="700" data-transition="fade">
+              <img data-lazyload="../static/pic/slider/main/slide-2.jpg"
+                   data-bgposition="center" alt=""
+                   data-kenburns="on"
+                   data-duration="1000"
+                   data-ease="Linear.easeNone"
+                   data-scalestart="100"
+                   data-scaleend="135" data-rotatestart="0" data-rotateend="0" data-offsetstart="0 0" data-offsetend="0 0" data-bgparallax="10">
+              <div data-x="['center','center','center','center']" data-y="center" data-transform_in="y:-150px;opacity:0;s:1500;e:Power3.easeInOut;" data-transform_out="y:150px;opacity:0;s:1000;e:Power2.easeInOut;s:1000;e:Power2.easeInOut;" data-start="400" class="tp-caption sl-content">
+                <div class="sl-title-top">Welcome to</div>
+                <div class="sl-title">Istanbul</div>
+                <div class="sl-title-bot">Starting <span>$255</span> per night</div>
+              </div>
+            </li>
+            <li data-masterspeed="700" data-transition="fade">
+              <img  data-lazyload="../static/pic/slider/main/slide-3.jpg"
+                    data-bgposition="center"
+                    alt=""
+                    data-kenburns="on"
+                    data-duration="1000"
+                    data-ease="Linear.easeNone"
+                    data-scalestart="100"
+                    data-scaleend="135" data-rotatestart="0" data-rotateend="0" data-offsetstart="0 0" data-offsetend="0 0" data-bgparallax="10">
+              <div data-x="['center','center','center','center']" data-y="center" data-transform_in="x:150px;opacity:0;s:1500;e:Power3.easeInOut;" data-transform_out="x:-150px;opacity:0;s:1000;e:Power2.easeInOut;s:1000;e:Power2.easeInOut;" data-start="400" class="tp-caption sl-content">
+                <div class="sl-title-top">Welcome to</div>
+                <div class="sl-title">Dubai</div>
+                <div class="sl-title-bot">Starting <span>$280</span> per night</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <!-- search tours form-->
+        <div class="search-tours-form">
+          <div class="container">
+            <div class="search-tours-wrap">
+              <div class="search-tours-tabs">
+                <div class="search-tabs-wrap">
+
+                  <div data-tours-cat="tab-cat-1" class="tours-tab-btn active"> <span>Hotels</span><i class="tours-tab-icon flaticon-suntour-hotel"></i></div>
+                  <div data-tours-cat="tab-cat-2" class="tours-tab-btn"> <span>Holidays & Tours</span><i class="tours-tab-icon flaticon-suntour-fireworks"></i></div>
+
+                </div>
+              </div>
+              <div class="search-tours-content">
+                <input id="csrf_token" type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                <div data-tours-cat="tab-cat-1" class="tours-container active">
+                  <div class="hotels-box">
+                    <div class="hotels-search">
+                      <form method="post" class="form search" id="hotel_form" action="/v1/hotel/search">
+                        {% csrf_token %}
+
+                        <div class="search-wrap">
+                          <input list="hotel_destinations"  name="hotel_destination" type="text" placeholder="Destination, hotel name" class="form-control search-field"><i class="flaticon-suntour-map search-icon"></i>
+                          <datalist id="hotel_destinations"> </datalist>
+
+                        </div>
+                        </br>
+                        <div class="hotels-select">
+                          <div class="tours-calendar divider-skew">
+                            <input name="hotel_checkin_date" placeholder="Check in" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" class="calendar-default textbox-n"><i class="flaticon-suntour-calendar calendar-icon"></i>
+                          </div>
+                          <div class="tours-calendar divider-skew">
+                            <input name="hotel_checkout_date" placeholder="Check out" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" class="calendar-default textbox-n"><i class="flaticon-suntour-calendar calendar-icon"></i>
+                          </div>
+                          <div  class="selection-box divider-skew"><i class="flaticon-suntour-adult box-icon"></i>
+                            <select name="hotel_rooms_no">
+                               <option>No of rooms</option>
+                              {% for i  in  16|times %}
+                                    <option>{{ i }}</option>
+                              {% endfor %}
+                            </select>
+                          </div>
+                          <div  class="selection-box divider-skew"><i class="flaticon-suntour-adult box-icon"></i>
+                            <select name="hotel_adults_no">
+                               <option>Adults</option>
+                              {% for i  in  16|times %}
+                                    <option>{{ i }}</option>
+                              {% endfor %}
+                            </select>
+                          </div>
+                          <div  class="selection-box"><i class="flaticon-suntour-children box-icon"></i>
+                            <select id="hotel_children_no">
+                               <option>Children 2-19 yrs</option>
+                              {% for i  in  16|times %}
+                                    <option>{{ i }}</option>
+                              {% endfor %}
+                            </select>
+                          </div>
+                          <div onclick="document.forms['hotel_form'].submit();"  class="button-search">Search</div>
+
+                        </div>
+                       </form>
+                    </div>
+                  </div>
+                </div>
+                <div data-tours-cat="tab-cat-2" style="display: none;" class="tours-container">
+                  <div class="holidays-box">
+                    <div class="holidays-search">
+                      <form method="post" class="form search divider-skew">
+                        <div class="search-wrap">
+                          <input list="holiday_destinations" id="holiday_destination" type="text" placeholder="Destination" class="form-control search-field"><i class="flaticon-suntour-map search-icon"></i>
+                          <datalist id="holiday_destinations"> </datalist>
+                        </div>
+                      </form>
+                      <div class="tours-calendar divider-skew">
+                        <input placeholder="Depart date" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" class="calendar-default textbox-n"><i class="flaticon-suntour-calendar calendar-icon"></i>
+                      </div>
+                      <div class="tours-calendar divider-skew">
+                        <input placeholder="Return date" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" class="calendar-default textbox-n"><i class="flaticon-suntour-calendar calendar-icon"></i>
+                      </div>
+                      <div class="selection-box divider-skew"><i class="flaticon-suntour-adult box-icon"></i>
+                        <select>
+                          <option>Adult</option>
+                          <option>1</option>
+                          <option>2</option>
+                          <option>3</option>
+                          <option>4</option>
+                        </select>
+                      </div>
+                      <div class="selection-box"><i class="flaticon-suntour-children box-icon"></i>
+                        <select>
+                          <option>Child</option>
+                          <option>1</option>
+                          <option>2</option>
+                          <option>3</option>
+                          <option>4</option>
+                        </select>
+                      </div>
+                      <div class="button-search">Search</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>-
+        <!-- ! search tours form-->
+      </div>
+
+
+
+      <!-- counter section -->
+      <section class="small-section">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-2 col-xs-6 mb-md-30">
+              <div class="counter-block with-divider"><i class="counter-icon flaticon-suntour-fireworks"></i>
+                <div class="counter-name-wrap">
+                  <div data-count="438" class="counter">0</div>
+                  <div class="counter-name">Holidays & Tours</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2 col-xs-6 mb-md-30">
+              <div class="counter-block with-divider"><i class="counter-icon flaticon-suntour-hotel"></i>
+                <div class="counter-name-wrap">
+                  <div data-count="526" class="counter">0</div>
+                  <div class="counter-name">Hotels</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2 col-xs-6">
+              <div class="counter-block with-divider"><i class="counter-icon flaticon-suntour-airplane"></i>
+                <div class="counter-name-wrap">
+                  <div data-count="293" class="counter">0</div>
+                  <div class="counter-name">Flights</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- ! counter section-->
+      <!-- recomended section-->
+      <section class="small-section bg-gray">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-8">
+              <h6 class="title-section-top font-4">Top rated</h6>
+              <h2 class="title-section"><span>Recomended</span> Hotels</h2>
+              <div class="cws_divider mb-25 mt-5"></div>
+  </div>
+            <div class="col-md-4"><i class="flaticon-suntour-hotel title-icon"></i></div>
+          </div>
+          <div class="row">
+            <!-- Recomended item-->
+            <div class="col-md-6">
+              <div class="recom-item">
+                <div class="recom-media"><a href="hotels-details.html">
+                    <div class="pic"><img src="../static/pic/recomended/1.jpg" data-at2x="../static/pic/recomended/1@2x.jpg" alt></div></a>
+                  <div class="location"><i class="flaticon-suntour-map"></i> Istanbul, Turkey</div>
+                </div>
+                <!-- Recomended Content-->
+                <div class="recom-item-body"><a href="hotels-details.html">
+                    <h6 class="blog-title">Hotel Bohemians</h6></a>
+                  <div class="stars stars-4"></div>
+                  <div class="recom-price"><span class="font-4">$90</span> per night</div>
+                  <p class="mb-30">Quisque egestas a est in convallis. Maecenas pellentesque.</p><a href="hotels-details.html" class="recom-button">Read more</a><a href="hotels-details.html" class="cws-button small alt">Book now</a>
+                  <div class="action font-2">20%</div>
+                </div>
+                <!-- Recomended Image-->
+              </div>
+            </div>
+            <!-- ! Recomended item-->
+            <!-- Recomended item-->
+            <div class="col-md-6">
+              <div class="recom-item">
+                <div class="recom-media"><a href="hotels-details.html">
+                    <div class="pic"><img src="../static/pic/recomended/2.jpg" data-at2x="../static/pic/recomended/2@2x.jpg" alt></div></a>
+                  <div class="location"><i class="flaticon-suntour-map"></i> Praga, Czech Republic</div>
+                </div>
+                <!-- Recomended Content-->
+                <div class="recom-item-body"><a href="hotels-details.html">
+                    <h6 class="blog-title">Easyhotel</h6></a>
+                  <div class="stars stars-3"></div>
+                  <div class="recom-price"><span class="font-4">$35</span> per night</div>
+                  <p class="mb-30">Mauris eget hendrerit diam. Praesent a lacinia ex.</p><a href="hotels-details.html" class="recom-button">Read more</a><a href="hotels-details.html" class="cws-button small alt">Book now</a>
+                </div>
+                <!-- Recomended Image-->
+              </div>
+            </div>
+            <!-- ! Recomended item-->
+            <!-- Recomended item-->
+            <div class="col-md-6">
+              <div class="recom-item">
+                <div class="recom-media"><a href="hotels-details.html">
+                    <div class="pic"><img src="../static/pic/recomended/3.jpg" data-at2x="../static/pic/recomended/3@2x.jpg" alt></div></a>
+                  <div class="location"><i class="flaticon-suntour-map"></i> Isle of Colonsay, United...</div>
+                </div>
+                <!-- Recomended Content-->
+                <div class="recom-item-body"><a href="hotels-details.html">
+                    <h6 class="blog-title">Dolce Villa</h6></a>
+                  <div class="stars stars-5"></div>
+                  <div class="recom-price"><span class="font-4">$110</span> per night</div>
+                  <p class="mb-30">Suspe elit nibh, auctor ac quam id, maximus efficitur justo.</p><a href="hotels-details.html" class="recom-button">Read more</a><a href="hotels-details.html" class="cws-button small alt">Book now</a>
+                </div>
+                <!-- Recomended Image-->
+              </div>
+            </div>
+            <!-- ! Recomended item-->
+            <!-- Recomended item-->
+            <div class="col-md-6">
+              <div class="recom-item">
+                <div class="recom-media"><a href="hotels-details.html">
+                    <div class="pic"><img src="../static/pic/recomended/4.jpg" data-at2x="../static/pic/recomended/4@2x.jpg" alt></div></a>
+                  <div class="location"><i class="flaticon-suntour-map"></i> St. Petersburg, Russia</div>
+                </div>
+                <!-- Recomended Content-->
+                <div class="recom-item-body"><a href="hotels-details.html">
+                    <h6 class="blog-title">Hotel Stary Pivovar</h6></a>
+                  <div class="stars stars-4"></div>
+                  <div class="recom-price"><span class="font-4">$55</span> per night</div>
+                  <p class="mb-30">Nullam posuere tincidunt metus, nec pulvinar risus imperdiet.</p><a href="hotels-details.html" class="recom-button">Read more</a><a href="hotels-details.html" class="cws-button small alt">Book now</a>
+                </div>
+                <!-- Recomended Image-->
+              </div>
+            </div>
+            <!-- ! Recomended item-->
+
+          </div>
+        </div>
+      </section>
+      <!-- ! recomended section-->
+        <section class="page-section pb-0">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-8">
+              <h6 class="title-section-top font-4">Travel with us</h6>
+              <h2 class="title-section"><span>Popular</span> Destinations</h2>
+              <div class="cws_divider mb-25 mt-5"></div>
+                </div>
+            <div class="col-md-4"><img src="pic/promo-1.png" data-at2x="pic/promo-1@2x.png" alt class="mt-md-0 mt-minus-70"></div>
+          </div>
+        </div>
+        <div class="features-tours-full-width">
+          <div class="features-tours-wrap clearfix">
+            <div class="features-tours-item">
+              <div class="features-media"><img src="../static/pic/tours/1.jpg" data-at2x="../static/pic/tours/1@2x.jpg" alt>
+                <div class="features-info-top">
+                  <div class="info-price font-4"><span>start per night</span> $80</div>
+                  <div class="info-temp font-4"><span>local temperature</span> 30° / 86°</div>
+                  <p class="info-text">Etiam malesuada lectus tempor, ultricies lectus in, convallis massa.</p>
+                </div>
+                <div class="features-info-bot">
+                  <h4 class="title"><span class="font-4">United arab emirates</span> Dubai</h4><a href="hotels-details.html" class="button">Details</a>
+                </div>
+              </div>
+            </div>
+            <div class="features-tours-item">
+              <div class="features-media"><img src="../static/pic/tours/2.jpg" data-at2x="../static/pic/tours/2@2x.jpg" alt>
+                <div class="features-info-top">
+                  <div class="info-price font-4"><span>start per night</span> $100</div>
+                  <div class="info-temp font-4"><span>local temperature</span> 23° / 73.4°</div>
+                  <p class="info-text">Etiam malesuada lectus tempor, ultricies lectus in, convallis massa.</p>
+                </div>
+                <div class="features-info-bot">
+                  <h4 class="title"><span class="font-4">United kingdom</span> London</h4><a href="hotels-details.html" class="button">Details</a>
+                </div>
+              </div>
+            </div>
+            <div class="features-tours-item">
+              <div class="features-media"><img src="../static/pic/tours/3.jpg" data-at2x="../static/pic/tours/3@2x.jpg" alt>
+                <div class="features-info-top">
+                  <div class="info-price font-4"><span>start per night</span> $120</div>
+                  <div class="info-temp font-4"><span>local temperature</span> 34° / 93.2°</div>
+                  <p class="info-text">Etiam malesuada lectus tempor, ultricies lectus in, convallis massa.</p>
+                </div>
+                <div class="features-info-bot">
+                  <h4 class="title"><span class="font-4">Australia ans oceania</span> Sydney</h4><a href="hotels-details.html" class="button">Details</a>
+                </div>
+              </div>
+            </div>
+            <div class="features-tours-item">
+              <div class="features-media"><img src="../static/pic/tours/4.jpg" data-at2x="../static/pic/tours/4@2x.jpg" alt>
+                <div class="features-info-top">
+                  <div class="info-price font-4"><span>start per night</span> $105</div>
+                  <div class="info-temp font-4"><span>local temperature</span> 39° / 102.2°</div>
+                  <p class="info-text">Etiam malesuada lectus tempor, ultricies lectus in, convallis massa.</p>
+                </div>
+                <div class="features-info-bot">
+                  <h4 class="title"><span class="font-4">Brazil</span> Rio de janeiro</h4><a href="hotels-details.html" class="button">Details</a>
+                </div>
+              </div>
+            </div>
+            <div class="features-tours-item">
+              <div class="features-media"><img src="../static/pic/tours/5.jpg" data-at2x="../static/pic/tours/5@2x.jpg" alt>
+                <div class="features-info-top">
+                  <div class="info-price font-4"><span>start per night</span> $110</div>
+                  <div class="info-temp font-4"><span>local temperature</span> 35° / 95°</div>
+                  <p class="info-text">Etiam malesuada lectus tempor, ultricies lectus in, convallis massa.</p>
+                </div>
+                <div class="features-info-bot">
+                  <h4 class="title"><span class="font-4">Maldives</span> Male</h4><a href="hotels-details.html" class="button">Details</a>
+                </div>
+              </div>
+            </div>
+            <div class="features-tours-item">
+              <div class="features-media"><img src="../static/pic/tours/6.jpg" data-at2x="../static/pic/tours/6@2x.jpg" alt>
+                <div class="features-info-top">
+                  <div class="info-price font-4"><span>start per night</span> $85</div>
+                  <div class="info-temp font-4"><span>local temperature</span> 30° / 86°</div>
+                  <p class="info-text">Etiam malesuada lectus tempor, ultricies lectus in, convallis massa.</p>
+                </div>
+                <div class="features-info-bot">
+                  <h4 class="title"><span class="font-4">Turkey</span> Istanbul</h4><a href="hotels-details.html" class="button">Details</a>
+                </div>
+              </div>
+            </div>
+            <div class="features-tours-item">
+              <div class="features-media"><img src="../static/pic/tours/7.jpg" data-at2x="../static/pic/tours/7@2x.jpg" alt>
+                <div class="features-info-top">
+                  <div class="info-price font-4"><span>start per night</span> $75</div>
+                  <div class="info-temp font-4"><span>local temperature</span> 25° / 77°</div>
+                  <p class="info-text">Etiam malesuada lectus tempor, ultricies lectus in, convallis massa.</p>
+                </div>
+                <div class="features-info-bot">
+                  <h4 class="title"><span class="font-4">Austria</span> Vienna</h4><a href="hotels-details.html" class="button">Details</a>
+                </div>
+              </div>
+            </div>
+            <div class="features-tours-item">
+              <div class="features-media"><img src="../static/pic/tours/8.jpg" data-at2x="../static/pic/tours/8@2x.jpg" alt>
+                <div class="features-info-top">
+                  <div class="info-price font-4"><span>start per night</span> $115</div>
+                  <div class="info-temp font-4"><span>local temperature</span> 22° / 71.6°</div>
+                  <p class="info-text">Etiam malesuada lectus tempor, ultricies lectus in, convallis massa.</p>
+                </div>
+                <div class="features-info-bot">
+                  <h4 class="title"><span class="font-4">Italy</span> Venice</h4><a href="hotels-details.html" class="button">Details		</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="page-section pb-10 ">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-8">
+              <h6 class="title-section-top font-4">We are</h6>
+              <h2 class="title-section"><span>Regal Tours & Travel LTD</span></h2>
+              <div class="cws_divider mb-25 mt-5"></div>
+                  <p> We are a renowned Tours and Travel company that specializes in Air Ticketing and all other Travel & tours related services for budget and corporates clients. Our website stands out and offers a ``one stop shop`` to its deserving guests, with variety of services that are useful to a frequent global traveler.              </p>
+                                </div>
+          </div>
+          <div class="row">
+            <!-- service item-->
+            <div class="col-sm-4 mb-40">
+              <div class="service-item icon-right color-icon"><i class="flaticon-suntour-world cws-icon type-1 color-2"></i>
+                <h3>Fully Responsive</h3>
+                <p class="mb-0">
+                  Our website is fully responsive enabling clients to have an end-to-end seamless booking experience.
+                  Clients can query, book, pay and receive their tickets from the comfort of their devices.
+                </p>
+              </div>
+            </div>
+            <!-- service item-->
+            <!-- ! service item-->
+            <div class="col-sm-4 mb-40">
+              <div class="service-item icon-right color-icon"><i class="flaticon-suntour-fireworks cws-icon type-1 color-2"></i>
+                <h3>Awesome Options</h3>
+                <p class="mb-0">
+                  Our customer support team is available 24/7 on email and phone to respond to clients’ queries.                </p>
+              </div>
+            </div>
+            <!-- service item-->
+            <!-- ! service item-->
+            <div class="col-sm-4 mb-40">
+              <div class="service-item icon-right color-icon"><i class="flaticon-suntour-hotel cws-icon type-1 color-2"></i>
+                <h3>Great Support</h3>
+                <p class="mb-0">
+                    Our customer support team is available 24/7 on email and phone to respond to clients’ queries.
+                </p>
+              </div>
+            </div>
+
+
+
+          </div>
+        </div>
+      </section>
+
+
+            <section class="page-section pb-10 pt-5">
+              <div class="container">
+                <div class="col-md-12">
+              <h2 class="title-section"><span>Certified by:</span></h2>
+                  <div class="cws_divider  "></div>
+
+                <div class="row pt-10">
+
+                  <img src="../../static/pic/trip-advisor.png" alt="">
+                  <img style="background-color: #0e0e0e" src="../../static/pic/kata.png" width="200"  height="250" alt="">
+                  <img src="../../static/pic/iata.png" alt="">
+                </div>
+              </div>
+            </section>
+
+
+    </div>
+
+{% endblock %}
+
+
+
+<!--
+
+    &lt;!&ndash; ! footer&ndash;&gt;
+    &lt;!&ndash; login popup&ndash;&gt;
+    <div class="login-popup">
+      <div class="login-popup-wrap">
+        <div class="title-wrap">
+          <h2>Login</h2><i class="close-button flaticon-close"></i>
+        </div>
+        <div class="login-content">
+          <form class="form">
+            <input type="text" name="email" value="" size="40" placeholder="Enter Your Email ..." aria-required="true" class="form-row form-row-first">
+            <input type="text" name="password" value="" size="40" placeholder="Enter Your Password ..." aria-required="true" class="form-row form-row-last">
+          </form>
+          <div class="remember">
+            <div class="checkbox">
+              <input id="checkbox30" type="checkbox" value="None" name="check">
+              <label for="checkbox30">Remember Me</label>
+            </div><a href="#">Forgot Password ?</a>
+          </div><a href="#" class="cws-button gray alt full-width mt-20">Login now</a>
+        </div>
+        <div class="login-bot">
+          <p>No account yet? <a href="#">Register now</a></p>
+        </div>
+      </div>
+    </div>
+    &lt;!&ndash; ! login popup&ndash;&gt;
+    &lt;!&ndash; news popup&ndash;&gt;
+    <div class="news-popup"> 
+      <div class="news-popup-wrap"> <i class="close-button flaticon-close"></i>
+        <div class="row">
+          <div class="col-sm-6"><img src="../static/pic/news-popup.jpg" data-at2x="../static/pic/news-popup@2x.jpg" alt></div>
+          <div class="col-sm-6">
+            <div class="news-content">
+              <div class="news-title">
+                <h2>Newsletter</h2>
+                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</p>
+              </div>
+              <form method="get" action="#" class="newsletter contact-form">
+                <label class="mb-0">
+                  <input type="text" placeholder="Enter Your Email ..." value="" name="email" class="newsletter-field mb-0">
+                </label>
+                <button type="submit" class="newsletter-submit cws-button alt">Submit</button>
+              </form>
+              <div class="checkbox-wrap">
+                <div class="checkbox">
+                  <input id="checkbox40" type="checkbox" value="None" name="check">
+                  <label for="checkbox40">Dont Show This Message Again</label>
+                </div>
+              </div>
+              <div class="social-wrap"><a href="#" class="cws-social flaticon-social-4"></a><a href="#" class="cws-social flaticon-social"></a><a href="#" class="cws-social flaticon-social-3"></a><a href="#" class="cws-social flaticon-social-1"></a><a href="#" class="cws-social flaticon-social-network"></a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+-->
+

@@ -1,0 +1,69 @@
+version: '3.7'
+services:
+  app:
+    build: ./
+    image: regal_tours:latest
+    volumes:
+      - ./:/app
+    command: bash -c "python3 manage.py makemigrations && python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:80"
+    ports:
+      - 5001:80
+    env_file:
+      - .env
+    depends_on:
+      - redis_regal_tours
+      - postgres_regal_tours
+
+
+    restart: on-failure
+  worker_regal_sync:
+    image: regal_tours:latest
+    command: bash -c "celery -A app.celery worker --loglevel=INFO"
+    volumes:
+      - ./:/app
+    env_file:
+      - .env
+    depends_on:
+      - app
+      - redis_regal_tours
+      - postgres_regal_tours
+    restart: on-failure
+    deploy:
+      mode: replicated
+      replicas: 2
+  app_worker_beat:
+    image: regal_tours:latest
+    command: bash -c "celery -A app.celery beat --loglevel=info --scheduler django_celery_beat.schedulers:DatabaseScheduler"
+    volumes:
+      - ./:/app
+    env_file:
+      - .env
+    depends_on:
+      - app
+      - redis_regal_tours
+      - postgres_regal_tours
+    restart: on-failure
+  postgres_regal_tours:
+    container_name: postgres_regal_tours
+    image: postgres:14.2
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - 5432:5432
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - ./volumes/_data/postgres:/var/lib/postgresql/data
+      - ./volumes/_postgres/scripts/create_db.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
+  redis_regal_tours:
+    container_name: redis_regal_tours
+    image: 'redis:alpine'
+    ports:
+      - 6379:6379
+
+networks:
+  default:
